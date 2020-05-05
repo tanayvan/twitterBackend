@@ -45,7 +45,8 @@ exports.getUser = (req,res) => {
 
 
 exports.makeATweet=(req,res)=>{
-        const tweet = new Tweet(req.body)
+        const tweet = new Tweet({tweet:req.body.tweets,
+        user:req.profile})
         tweet.save((err,tweet) => {
             if(err){
                 return(
@@ -59,8 +60,8 @@ exports.makeATweet=(req,res)=>{
 }
 
  exports.getAllTweets = (req,res) => {
-    
-     Tweet.find({["user.username"]:req.profile.username}).populate('user._id')
+        console.log("Tweet Request")
+     Tweet.find({["user.username"]:req.profile.username})
      .exec((error,tweets) => {
         if(error){
             return(
@@ -69,7 +70,7 @@ exports.makeATweet=(req,res)=>{
                 })
                 )
         }
-        res.json({tweets,name:req.profile.name})
+        res.json({tweets})
      })
 }
 
