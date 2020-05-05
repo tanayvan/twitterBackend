@@ -45,7 +45,7 @@ exports.getUser = (req,res) => {
 
 
 exports.makeATweet=(req,res)=>{
-        const tweet = new Tweet({tweet:req.body.tweets,
+        const tweet = new Tweet({tweet:req.body.tweet,
         user:req.profile})
         tweet.save((err,tweet) => {
             if(err){
