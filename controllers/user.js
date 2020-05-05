@@ -86,4 +86,15 @@ exports.unFollowTheUser = (req,res) => {
     )
 }
             
-  
+  exports.getAllUser = (req,res) => {
+    User.find().limit(6).exec((error,user) => {
+        if (error) {
+            return res.status(400).json(error);
+          }
+          user.forEach((user,index) => {
+              user.salt=undefined
+              user.encry_password=undefined
+          })
+          return res.status(201).json(user);
+    })
+  }
