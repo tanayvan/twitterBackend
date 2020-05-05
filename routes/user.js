@@ -1,18 +1,20 @@
 const express= require('express')
 const router = express.Router()
 const {isSignedIn} = require('../controllers/auth')
-const {getUser,getUserByUserName,makeATweet,getAllTweets,followRequest,getFollowedUserByUserName} = require('../controllers/user')
+const {getUser,getUserByUserName,makeATweet,getAllTweets,followTheUser,unFollowTheUser} = require('../controllers/user')
 
 
 
 
 router.param("userName",getUserByUserName)
-router.param("FuserName",getFollowedUserByUserName)
 
-router.get('/:userName/follow/:FuserName',followRequest)
+
+
 router.get('/:userName',getUser)
 router.get('/tweets/:userName',getAllTweets)
 router.post('/:userName',isSignedIn,makeATweet)
+router.patch('/:userName',isSignedIn,followTheUser)
+router.patch('/unfollow/:userName',isSignedIn,unFollowTheUser)
 
 
 

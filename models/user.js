@@ -30,12 +30,6 @@ var userSchema= new mongoose.Schema({
         required:true
     },
     following:{
-        user:{
-            type:ObjectId,
-            ref:"User"
-        }
-    },
-    following:{
         type:[String]
     },
     followers:{

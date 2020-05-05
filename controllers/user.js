@@ -19,22 +19,7 @@ exports.getUserByUserName = (req,res,next,userName) =>{
     })
 
 }
-exports.getFollowedUserByUserName = (req,res,next,userName) =>{
-    User.findOne({username:userName}).exec((err,user) => {
-        if(err || !user){
-            return res.status(400).json({
-                error:"No user was found in DB"+err
-            })
-    }
 
-    req.Fprofile=user
-    console.log(req.Fprofile)
-    
-  
-    next()
-    })
-
-}
 
 exports.getUser = (req,res) => {
     
@@ -60,7 +45,7 @@ exports.makeATweet=(req,res)=>{
 }
 
  exports.getAllTweets = (req,res) => {
-        console.log("Tweet Request")
+        
      Tweet.find({["user.username"]:req.profile.username})
      .exec((error,tweets) => {
         if(error){
@@ -76,16 +61,29 @@ exports.makeATweet=(req,res)=>{
 
 
 
-exports.followRequest = (req,res) => {
-    
-        const user= {
-            user:req.Fprofile.username
+exports.followTheUser = (req,res) => {
+    User.findOneAndUpdate({username:req.profile.username},{
+        $addToSet:{following:req.body.followerUsername}},
+        { new: true, upsert: true },
+        (err,user) => {
+            if (err) {
+                return res.status(400).json(err);
+              }
+              return res.status(201).json(user);
         }
-        User.findByIdAndUpdate(req.profile._id,{$push:{following:user}}, { "new": true, "upsert": true ,useFindAndModify:false},
-        function (err, user) {
-            if (err) console.log(err)
-            console.log(user);
-        })
+    )
+}
+exports.unFollowTheUser = (req,res) => {
+    User.findOneAndUpdate({username:req.profile.username},{
+        $pull:{following:req.body.unFollowerUsername}},
+        { new: true, upsert: true },
+        (err,user) => {
+            if (err) {
+                return res.status(400).json(err);
+              }
+              return res.status(201).json(user);
+        }
+    )
 }
             
   
