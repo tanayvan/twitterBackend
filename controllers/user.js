@@ -128,3 +128,9 @@ exports.unFollowedByTheUser = (req,res) => {
         }
     )
 }
+
+// get Tweets of the Following Users
+
+exports.getTweetsForFeed = (req,res) => {
+    User.find({})
+}
