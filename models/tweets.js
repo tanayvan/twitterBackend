@@ -13,6 +13,9 @@ var tweetSchema = new mongoose.Schema({
         username:{
             type:String,
         
+        },
+        name:{
+            type:String
         }
     }
 })

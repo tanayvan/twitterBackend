@@ -31,7 +31,7 @@ exports.getUser = (req,res) => {
 
 exports.makeATweet=(req,res)=>{
         const tweet = new Tweet({tweet:req.body.tweet,
-        user:req.profile})
+        user:req.profile,name:req.profile.name})
         tweet.save((err,tweet) => {
             if(err){
                 return(
@@ -145,7 +145,7 @@ exports.getTweetsForFeed = (req,res) => {
             
             user1.push(user)   
        })
-       Tweet.find({ ["user.username"]: { $in: user1 }}, function (err, Tweet) {
+       Tweet.find({ ["user.username"]: { $in: user1 }}).populate("User").exec((err, Tweet) => {
         if (err) return console.log(err);
     
         // note: you must wait till the callback is called to send back your response
