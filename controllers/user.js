@@ -60,7 +60,7 @@ exports.makeATweet=(req,res)=>{
 }
 
 
-
+//Add and Remove From Following Tab
 exports.followTheUser = (req,res) => {
     User.findOneAndUpdate({username:req.profile.username},{
         $addToSet:{following:req.body.followerUsername}},
@@ -85,9 +85,12 @@ exports.unFollowTheUser = (req,res) => {
         }
     )
 }
-            
+           
+
+
+//Get Users For Discover People Tabs
   exports.getAllUser = (req,res) => {
-    User.find().limit(6).exec((error,user) => {
+    User.find().limit(10).exec((error,user) => {
         if (error) {
             return res.status(400).json(error);
           }
@@ -98,3 +101,30 @@ exports.unFollowTheUser = (req,res) => {
           return res.status(201).json(user);
     })
   }
+
+  //Add And Remove From Followers Tab
+  exports.followedByTheUser = (req,res) => {
+    User.findOneAndUpdate({username:req.profile.username},{
+        $addToSet:{followers:req.body.followerUsername}},
+        { new: true, upsert: true },
+        (err,user) => {
+            if (err) {
+                return res.status(400).json(err);
+              }
+              return res.status(201).json(user);
+        }
+    )
+}
+
+exports.unFollowedByTheUser = (req,res) => {
+    User.findOneAndUpdate({username:req.profile.username},{
+        $pull:{followers:req.body.unFollowerUsername}},
+        { new: true, upsert: true },
+        (err,user) => {
+            if (err) {
+                return res.status(400).json(err);
+              }
+              return res.status(201).json(user);
+        }
+    )
+}
