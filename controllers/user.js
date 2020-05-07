@@ -132,5 +132,27 @@ exports.unFollowedByTheUser = (req,res) => {
 // get Tweets of the Following Users
 
 exports.getTweetsForFeed = (req,res) => {
-    User.find({})
+    var user1=[]
+    User.findOne({username:req.profile.username})
+    .exec((error,user) => {
+        
+        if(error){
+            return res.status(400).json(err);
+            
+        }
+       user.following.map((user,index) =>{ 
+           
+            
+            user1.push(user)   
+       })
+       Tweet.find({ ["user.username"]: { $in: user1 }}, function (err, Tweet) {
+        if (err) return console.log(err);
+    
+        // note: you must wait till the callback is called to send back your response
+        res.json({ tweet: Tweet });
+    });
+       
+    })
+   
+        
 }
