@@ -28,7 +28,7 @@ app.use('/api',authRoutes)
 app.use('/api',userRoutes)
 
 
-const port=process.env.PORT || 7000
+const port=process.env.PORT || 7000;
 app.listen(port,() => {
     console.log(`Server Started on ${port}`)
 })
