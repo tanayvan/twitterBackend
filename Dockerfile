@@ -5,4 +5,5 @@ WORKDIR /app
 # Add our sourcecode
 ADD . /app
 # The command to start our container
+CMD npm install
 CMD node app.js
