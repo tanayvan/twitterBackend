@@ -1,9 +1,19 @@
-# Always good to specific so that it doesn't later break
-FROM node:latest
-# This folder will all commands be run in, like the HOME folder
-WORKDIR /app
-# Add our sourcecode
-CMD npm install
-ADD . /app
-# The command to start our container
-CMD node app.js
+FROM node:16
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
+
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --omit=dev
+
+# Bundle app source
+COPY . .
+
+EXPOSE 7010
+CMD [ "node", "server.js" ]
