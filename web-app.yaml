@@ -16,9 +16,9 @@ spec:
     spec:
       containers:
         - name: mongo-express
-          image: nginx:latest
+          image: tanayvan/node-app:latest
           ports:
-            - containerPort: 80
+            - containerPort: 3000
           env:
             - name: ME_CONFIG_MONGODB_ADMINUSERNAME
               valueFrom:
@@ -47,5 +47,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
+      targetPort: 3000
       nodePort: 30100
