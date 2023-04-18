@@ -25,7 +25,7 @@ mongoose.connect("mongodb://localhost:27017/Twitter20",{useNewUrlParser:true,use
 
 //Set Routes
 app.use("/",(req,res) => {
-res.json({"message":"V1"})
+res.json({"message":"ANIKET MADARCHPD"})
 })
 app.use('/api',authRoutes)
 app.use('/api',userRoutes)
