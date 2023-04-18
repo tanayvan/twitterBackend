@@ -25,7 +25,19 @@ mongoose.connect("mongodb://localhost:27017/Twitter20",{useNewUrlParser:true,use
 
 //Set Routes
 app.use("/",(req,res) => {
-res.json({"message":"This is Version 2"})
+res.html(`
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Version 1 </title>
+  </head>
+  <body>
+    <h1 style="color: blue;">Hello, World!</h1>
+    <p style="font-size: 18px;">This is a demo page with version 1 .</p>
+    <img src="https://via.placeholder.com/150" alt="Placeholder Image" style="border: 1px solid black;">
+  </body>
+</html>
+`)
 })
 app.use('/api',authRoutes)
 app.use('/api',userRoutes)
