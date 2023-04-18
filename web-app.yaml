@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mongo-express
-          image: tanayvan/node-port:latest
+          image: tanayvan/node-app:latest
           ports:
             - containerPort: 3000
           env:
