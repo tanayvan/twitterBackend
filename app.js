@@ -25,7 +25,7 @@ mongoose.connect("mongodb://localhost:27017/Twitter20",{useNewUrlParser:true,use
 
 //Set Routes
 app.use("/",(req,res) => {
-res.html(`
+res.send(`
 <!DOCTYPE html>
 <html>
   <head>
