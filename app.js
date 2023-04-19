@@ -22,7 +22,7 @@ mongoose
     useCreateIndex: true,
   })
   .then(() => {
-    console.log("Database Connected");
+    console.log("Database Connected!!!!");
   })
   .catch(() => {
     console.log("Error Connecting to Database");
